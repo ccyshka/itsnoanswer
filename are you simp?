@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+bool simple(int num) {
+    if (num <= 1) {
+        return false; // меньше единички автоматом не простое
+    }
+    if (num <= 3) {
+        return true; // 2 and 3 простые
+    }
+    if (num % 2 == 0 || num % 3 == 0) { // если делится на 2 or 3, оно не простое
+        return false;
+    }
+
+    int i = 5;
+    while (i * i <= num) {
+        if (num % i == 0 || num % (i + 2) == 0) { // проверка деления на 5 and 7
+            return false;
+        }
+        i += 6; // увеличиваем и считаем дальше делимость на простые числа. 11 и 13, 17 и 19, 23 и 25(кратные пяти исключили выше) и так далее.
+    }
+    return true;
+}
+
+int main() {
+    int num;
+    printf("Введите число для проверки: ");
+    scanf("%d", &num);
+    
+    if (simple(num)) {
+        printf("%d - простое число\n", num);
+    } else {
+        printf("%d - не простое число\n", num);
+    }
+    
+    return 0;
+}
